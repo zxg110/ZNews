@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity<NewsPresenter, MainNewsView> impl
         channelContent = (LinearLayout)findViewById(R.id.channel_content_layout);
 //        Log.i("zxg","channelScrollView:"+channelScrollView.toString());
         initChannelTab();
+        Log.i("zxg","test git");
     }
 
     @Override
