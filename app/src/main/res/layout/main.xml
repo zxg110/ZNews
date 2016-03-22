@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg_color"
+    android:orientation="vertical" >
+
+    <include
+        layout="@layout/main_head" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/news_category_scroll_bar_height"
+        android:background="@color/scroll_bar_color"
+        android:orientation="horizontal">
+
+        <HorizontalScrollView
+            android:id="@+id/channel_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/news_category_scroll_bar_height"
+            android:layout_weight="1"
+            android:scrollbars="none">
+            <LinearLayout
+                android:id="@+id/channel_content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/news_category_scroll_bar_height"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="40dip"
+                android:paddingRight="10dip"
+                />
+
+        </HorizontalScrollView>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dip">
+        <ImageView
+            android:id="@+id/btn_more_category"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:src="@drawable/btn_add_channel"
+            android:visibility="visible"
+            />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

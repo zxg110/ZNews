@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:color="@color/channel_text_selected"
+        android:textSize="28sp"/>
+    <item android:state_selected="true" android:color="@color/channel_text_selected"
+          android:textSize="28sp"/>
+</selector>
