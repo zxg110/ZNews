@@ -27,4 +27,10 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/channel_text</item>
     </style>
+    <style name="top_category_scroll_view_item_text_selected">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/channel_text_selected</item>
+    </style>
 </resources>

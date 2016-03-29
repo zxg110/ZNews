@@ -2,6 +2,7 @@ package com.for_futrue.zxg.znews.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.for_futrue.zxg.znews.presenter.Presenter;
@@ -10,13 +11,12 @@ import com.for_futrue.zxg.znews.view.Ui;
 /**
  * Created by zxg on 2016/3/21.
  */
-public abstract  class BaseActivity<T extends Presenter<U>,U extends Ui> extends Activity{
+public abstract  class BaseActivity<T extends Presenter<U>,U extends Ui> extends FragmentActivity {
     private T mPresetner;
     abstract T createPresenter();
     abstract U getUi();
 
     protected BaseActivity(){
-        Log.i("zxg","baseactivity");
         mPresetner = createPresenter();
     }
     public T getPresenter(){

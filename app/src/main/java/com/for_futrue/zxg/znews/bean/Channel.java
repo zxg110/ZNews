@@ -10,6 +10,15 @@ public class Channel implements Serializable{
     private String name;
     private Integer orderId;
     private Integer selected;
+    private String desc;
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 
     public Integer getId() {
         return id;
@@ -43,20 +52,22 @@ public class Channel implements Serializable{
         this.name = name;
     }
 
-    public Channel(Integer id, Integer selected, Integer orderId, String name) {
+    public Channel(Integer id, String name, Integer orderId, Integer selected, String desc) {
         this.id = id;
-        this.selected = selected;
-        this.orderId = orderId;
         this.name = name;
+        this.orderId = orderId;
+        this.selected = selected;
+        this.desc = desc;
     }
 
     @Override
     public String toString() {
         return "Channel{" +
-                "selected=" + selected +
-                ", id=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", orderId=" + orderId +
+                ", selected=" + selected +
+                ", desc='" + desc + '\'' +
                 '}';
     }
 }
