@@ -33,4 +33,10 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/channel_text_selected</item>
     </style>
+
+    <style name="news_title">
+        <item name="android:textSize">17sp</item>
+
+
+    </style>
 </resources>

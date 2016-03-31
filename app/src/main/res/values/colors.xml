@@ -7,4 +7,7 @@
     <color name="scroll_bar_color">#fff3f3f3</color>
     <color name="channel_text_selected">#f1445ce3</color>
     <color name="channel_text">#e498999e</color>
+    <color name="item_title_normal">#ff444444</color>
+    <color name="item_title_disabled">#ff888888</color>
+    <color name="item_address">#ff999999</color>
 </resources>

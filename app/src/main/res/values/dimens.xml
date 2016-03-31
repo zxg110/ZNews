@@ -10,4 +10,6 @@
     <dimen name="news_category_scroll_bar_height">45.0dip</dimen>
     <dimen name="channel_textview_width">60dip</dimen>
     <dimen name="channel_text_selected">6sp</dimen>
+    <dimen name="news_item_left_image_width">80dip</dimen>
+    <dimen name="news_item_left_image_height">70dip</dimen>
 </resources>
