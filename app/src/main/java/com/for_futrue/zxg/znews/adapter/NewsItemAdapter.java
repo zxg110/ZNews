@@ -1,6 +1,7 @@
 package com.for_futrue.zxg.znews.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +34,9 @@ public class NewsItemAdapter extends BaseAdapter{
     }
     public void setNewsData(List<News> newsList){
         this.newsList = newsList;
-        this.notifyDataSetChanged();
+
         options = ImageLoaderOption.getOptions();
+        Log.i("zxg","adapter size:"+newsList.size());
     }
     @Override
     public int getCount() {
@@ -69,7 +71,11 @@ public class NewsItemAdapter extends BaseAdapter{
         }else{
             holder = (ViewHolder)convertView.getTag();
         }
-        return null;
+        holder.newsTitle.setText(newsList.get(position).getTitle());
+        holder.newsDesc.setText(newsList.get(position).getKey());
+        holder.newsAddress.setText(newsList.get(position).getAddress());
+        imageLoader.displayImage(newsList.get(position).getImageUrl(),holder.leftImage,options);
+        return convertView;
     }
     static class ViewHolder{
         public ImageView leftImage;
