@@ -24,6 +24,11 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import java.util.List;
 import android.os.Handler;
 
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+
 /**
  * Created by zxg on 2016/3/29.
  */
@@ -38,6 +43,9 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
 
     @ViewInject(R.id.loading)
     private ProgressBar loading;
+
+    @ViewInject(R.id.mPtrFrameLayout)
+    private PtrClassicFrameLayout mPtrFrameLayout;
 
 
 
@@ -64,6 +72,7 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.i("zxg","onCreate");
+
         Bundle args = getArguments();
         newsDesc = args != null?args.getString("desc"):"error";
         super.onCreate(savedInstanceState);
@@ -73,12 +82,31 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.news_fragment,null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.news_fragment, null);
         ViewUtils.inject(this, view);
         mAdapter = new NewsItemAdapter(getActivity());
+        initPtrFrameLayout();
         return view;
     }
+    private void initPtrFrameLayout(){
+        mPtrFrameLayout.setLastUpdateTimeRelateObject(this);
+        mPtrFrameLayout.setPtrHandler(new PtrHandler() {
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+            }
 
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                frame.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPtrFrameLayout.refreshComplete();
+                    }
+                }, 3800);
+            }
+        });
+    }
     /**
      *
      * @param isVisibleToUser: it is true when this fragment visible
@@ -95,10 +123,18 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
         }
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.i("zxg1","context time:"+System.currentTimeMillis());
+        Log.i("zxg1","context: "+getActivity().getApplicationContext().toString());
+        getmPresenter().setmContext(getActivity().getApplicationContext());
+
+    }
 
     @Override
     NewsPresenter createPresenter() {
-        return new NewsPresenter(getActivity());
+        return new NewsPresenter();
     }
 
     @Override
@@ -124,6 +160,15 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
 
     @Override
     public void showError(String errorInfo) {
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(newsList != null){
+            outState.putString("test","1");
+        }
 
     }
 }

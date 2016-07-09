@@ -1,9 +1,12 @@
 package com.for_futrue.zxg.znews.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by zxg on 2016/3/30.
  */
-public class News {
+public class News{
     private int id;
     private String title;
     private String key;
@@ -11,8 +14,15 @@ public class News {
     private String publishTime;
     private String sourceUrl;
     private String imageUrl;
-    private int commentNum;
+    private String type;
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public int getId() {
         return id;
@@ -70,16 +80,8 @@ public class News {
         this.imageUrl = imageUrl;
     }
 
-    public int getCommentNum() {
-        return commentNum;
-    }
-
-    public void setCommentNum(int commentNum) {
-        this.commentNum = commentNum;
-    }
-
     public News(int id, String title, String key, String address, String publishTime, String
-            sourceUrl, String imageUrl, int commentNum) {
+            sourceUrl, String imageUrl, String type) {
         this.id = id;
         this.title = title;
         this.key = key;
@@ -87,7 +89,7 @@ public class News {
         this.publishTime = publishTime;
         this.sourceUrl = sourceUrl;
         this.imageUrl = imageUrl;
-        this.commentNum = commentNum;
+        this.type = type;
     }
 
     @Override
@@ -100,7 +102,11 @@ public class News {
                 ", publishTime='" + publishTime + '\'' +
                 ", sourceUrl='" + sourceUrl + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", commentNum=" + commentNum +
+                ", type='" + type + '\'' +
                 '}';
     }
+    public News(){
+
+    }
+
 }

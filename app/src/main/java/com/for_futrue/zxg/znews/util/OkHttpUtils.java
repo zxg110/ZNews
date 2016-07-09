@@ -50,10 +50,11 @@ public class OkHttpUtils {
     }
     private void getRequest(String url,final ResultCallback callBack){
         final Request request = new Request.Builder().url(url).build();
+        dealRequest(callBack,request);
     }
     private void postRequest(String url,final ResultCallback callBack,List<Param> params){
         Request request = buildPostRequest(url, params);
-
+        dealRequest(callBack,request);
     }
     private Request buildPostRequest(String url,List<Param> params){
         FormEncodingBuilder builder = new FormEncodingBuilder();
@@ -73,7 +74,7 @@ public class OkHttpUtils {
             @Override
             public void onResponse(Response response) throws IOException {
                 try{
-                    String str = response.body().string();
+                    String str = checkString(response.body().string());
                     if(callBack.mType == String.class){
                         sendSuccessCallBack(callBack,str);
                     }else{
@@ -106,7 +107,10 @@ public class OkHttpUtils {
             }
         });
     }
-
+    private String checkString(String response){
+        response = response.replace("\\/","/");
+        return response;
+    }
 
 
 

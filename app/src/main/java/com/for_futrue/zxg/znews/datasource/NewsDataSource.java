@@ -11,6 +11,6 @@ import java.util.List;
  * Created by zxg on 2016/4/5.
  */
 public interface NewsDataSource {
-    void getNewsListByChannel(String channel,Message msg);
+    void loadNewsListByChannel(String channel,Message msg);
     String getNewsContentByUrl(String url);
 }

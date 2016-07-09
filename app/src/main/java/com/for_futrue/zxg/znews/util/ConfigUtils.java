@@ -34,5 +34,4 @@ public class ConfigUtils {
         return getNetConfigProperties().getProperty("PORT");
     }
 
-
 }
