@@ -3,33 +3,48 @@ package com.for_futrue.zxg.znews.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by zxg on 2016/3/30.
  */
-public class News{
-    private int id;
+public class News implements Serializable{
+
+    /**
+     * docid
+     */
+    private String docid;
+    /**
+     * 标题
+     */
     private String title;
-    private String key;
-    private String address;
-    private String publishTime;
-    private String sourceUrl;
-    private String imageUrl;
-    private String type;
+    /**
+     * 小内容
+     */
+    private String digest;
+    /**
+     * 图片地址
+     */
+    private String imgsrc;
+    /**
+     * 来源
+     */
+    private String source;
+    /**
+     * 时间
+     */
+    private String ptime;
+    /**
+     * TAG
+     */
+    private String tag;
 
-    public String getType() {
-        return type;
+    public String getDocid() {
+        return docid;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setDocid(String docid) {
+        this.docid = docid;
     }
 
     public String getTitle() {
@@ -40,73 +55,56 @@ public class News{
         this.title = title;
     }
 
-    public String getKey() {
-        return key;
+    public String getDigest() {
+        return digest;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setDigest(String digest) {
+        this.digest = digest;
     }
 
-    public String getAddress() {
-        return address;
+    public String getImgsrc() {
+        return imgsrc;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setImgsrc(String imgsrc) {
+        this.imgsrc = imgsrc;
     }
 
-    public String getPublishTime() {
-        return publishTime;
+    public String getSource() {
+        return source;
     }
 
-    public void setPublishTime(String publishTime) {
-        this.publishTime = publishTime;
+    public void setSource(String source) {
+        this.source = source;
     }
 
-    public String getSourceUrl() {
-        return sourceUrl;
+    public String getPtime() {
+        return ptime;
     }
 
-    public void setSourceUrl(String sourceUrl) {
-        this.sourceUrl = sourceUrl;
+    public void setPtime(String ptime) {
+        this.ptime = ptime;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getTag() {
+        return tag;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public News(int id, String title, String key, String address, String publishTime, String
-            sourceUrl, String imageUrl, String type) {
-        this.id = id;
-        this.title = title;
-        this.key = key;
-        this.address = address;
-        this.publishTime = publishTime;
-        this.sourceUrl = sourceUrl;
-        this.imageUrl = imageUrl;
-        this.type = type;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     @Override
     public String toString() {
         return "News{" +
-                "id=" + id +
+                "docid='" + docid + '\'' +
                 ", title='" + title + '\'' +
-                ", key='" + key + '\'' +
-                ", address='" + address + '\'' +
-                ", publishTime='" + publishTime + '\'' +
-                ", sourceUrl='" + sourceUrl + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", type='" + type + '\'' +
+                ", digest='" + digest + '\'' +
+                ", imgsrc='" + imgsrc + '\'' +
+                ", source='" + source + '\'' +
+                ", ptime='" + ptime + '\'' +
+                ", tag='" + tag + '\'' +
                 '}';
     }
-    public News(){
-
-    }
-
 }

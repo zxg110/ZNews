@@ -23,6 +23,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 import android.os.Handler;
+import android.widget.Toast;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -33,10 +34,11 @@ import in.srain.cube.views.ptr.PtrClassicFrameLayout;
  * Created by zxg on 2016/3/29.
  */
 public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> implements NewsFragmentUi{
+    public static final String TAG = "NewsFragment";
     private final static int SET_NEWS_DATA = 0;
     private final static int GET_NEWS_DATA = 1;
 
-    private String newsDesc = null;
+    private int newsDesc;
 
     @ViewInject(R.id.news_listview)
     private ListView newsListView;
@@ -59,12 +61,12 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
             super.handleMessage(msg);
             switch (msg.what){
                 case SET_NEWS_DATA:
-                    Log.i("zxg","handler GET_NEWS_DTAT ");
+                    Log.i(TAG,"handler GET_NEWS_DTAT ");
                     newsListView.setAdapter(mAdapter);
 
                 break;
                 case GET_NEWS_DATA:
-                    Log.i("zxg","handler SET_NEWS_DATA newsDesc"+newsDesc);
+                    Log.i(TAG,"handler SET_NEWS_DATA newsDesc"+newsDesc);
                     getmPresenter().loadNewsByChannel(newsDesc);
             }
         }
@@ -74,7 +76,8 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
         Log.i("zxg","onCreate");
 
         Bundle args = getArguments();
-        newsDesc = args != null?args.getString("desc"):"error";
+        newsDesc = args != null?args.getInt("desc"):-1;
+        Log.i(TAG,"newsDesc:"+newsDesc);
         super.onCreate(savedInstanceState);
     }
 
@@ -160,7 +163,7 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
 
     @Override
     public void showError(String errorInfo) {
-
+        Toast.makeText(getContext(),errorInfo,Toast.LENGTH_SHORT);
     }
 
     @Override
@@ -169,6 +172,5 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
         if(newsList != null){
             outState.putString("test","1");
         }
-
     }
 }

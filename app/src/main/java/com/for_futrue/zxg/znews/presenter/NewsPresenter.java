@@ -19,6 +19,9 @@ import java.util.List;
  * Created by zxg on 2016/3/30.
  */
 public class NewsPresenter extends Presenter<NewsFragmentUi> {
+
+
+    private final static String TAG = "NewsPresenter";
     public final static int GET_DATA_SUCCESS = 0;
     public final static int GET_DATA_FAIL = 1;
     private Context mContext;
@@ -29,20 +32,20 @@ public class NewsPresenter extends Presenter<NewsFragmentUi> {
             super.handleMessage(msg);
             switch (msg.what){
                 case GET_DATA_SUCCESS:
-//                    getUi().showLoadingAnim(false);
-//                    getUi().setNewsData((List<News>)msg.obj);
-                    Log.i("zxg","response:"+msg.obj);
+                    getUi().showLoadingAnim(false);
+                    getUi().setNewsData((List<News>)msg.obj);
+                    Log.i(TAG,"response:"+msg.obj);
                     break;
                 case GET_DATA_FAIL:
-                    getUi().showLoadingAnim(false);
-                    getUi().showError((String)msg.obj);
+                    getUi().showLoadingAnim(true);
+                    getUi().showError("加载失败");
             }
         }
     };
     public NewsPresenter() {
     }
 
-    public void loadNewsByChannel(String channelDesc) {
+    public void loadNewsByChannel(int channelDesc) {
         if(newsDataSource == null){
             getNewsDataSource();
         }

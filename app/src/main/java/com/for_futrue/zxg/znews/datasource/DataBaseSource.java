@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class DataBaseSource implements NewsDataSource{
     @Override
-    public void loadNewsListByChannel(String channel ,Message msg) {
+    public void loadNewsListByChannel(int channel ,Message msg) {
 
     }
 

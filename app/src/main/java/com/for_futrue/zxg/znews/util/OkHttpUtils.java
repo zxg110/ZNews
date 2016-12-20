@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.google.gson.internal.$Gson$Types;
+import com.lidroid.xutils.util.LogUtils;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -21,82 +22,97 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
+
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+
+import com.google.gson.internal.$Gson$Types;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 /**
- * Description : okHttp Network connection utility class
- * Created by zxg on 2016/4/6.
+ * Description : OkHttp网络连接封装工具类
+ * Author : lauren
+ * Email  : lauren.liuling@gmail.com
+ * Blog   : http://www.liuling123.com
+ * Date   : 15/12/17
  */
 public class OkHttpUtils {
-    private static final String TAG = "okHttpUtils";
+
+    private static final String TAG = "OkHttpUtils";
 
     private static OkHttpUtils mInstance;
-    private  OkHttpClient mOkHttpClient;
+    private OkHttpClient mOkHttpClient;
     private Handler mDelivery;
 
-    private OkHttpUtils(){
+    private OkHttpUtils() {
         mOkHttpClient = new OkHttpClient();
         mOkHttpClient.setConnectTimeout(10, TimeUnit.SECONDS);
         mOkHttpClient.setWriteTimeout(10, TimeUnit.SECONDS);
-        mOkHttpClient.setReadTimeout(20,TimeUnit.SECONDS);
-        // cookie enabled
+        mOkHttpClient.setReadTimeout(30, TimeUnit.SECONDS);
+        //cookie enabled
         mOkHttpClient.setCookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ORIGINAL_SERVER));
         mDelivery = new Handler(Looper.getMainLooper());
     }
 
-    private synchronized static OkHttpUtils getInstance(){
-        if(mInstance == null){
-           mInstance = new OkHttpUtils();
+    private synchronized static OkHttpUtils getmInstance() {
+        if (mInstance == null) {
+            mInstance = new OkHttpUtils();
         }
         return mInstance;
     }
-    private void getRequest(String url,final ResultCallback callBack){
+
+    private void getRequest(String url, final ResultCallback callback) {
         final Request request = new Request.Builder().url(url).build();
-        dealRequest(callBack,request);
+        deliveryResult(callback, request);
     }
-    private void postRequest(String url,final ResultCallback callBack,List<Param> params){
+
+    private void postRequest(String url, final ResultCallback callback, List<Param> params) {
         Request request = buildPostRequest(url, params);
-        dealRequest(callBack,request);
+        deliveryResult(callback, request);
     }
-    private Request buildPostRequest(String url,List<Param> params){
-        FormEncodingBuilder builder = new FormEncodingBuilder();
-        for(Param param :params ){
-            builder.addEncoded(param.key,param.value);
-        }
-        RequestBody requestBody = builder.build();
-        return new Request.Builder().url(url).post(requestBody).build();
-    }
-    private void dealRequest(final ResultCallback callBack,Request request){
+
+    private void deliveryResult(final ResultCallback callback, Request request) {
+
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Request request, IOException e) {
-
+            public void onFailure(Request request, final IOException e) {
+                sendFailCallback(callback, e);
             }
 
             @Override
             public void onResponse(Response response) throws IOException {
-                try{
-                    String str = checkString(response.body().string());
-                    if(callBack.mType == String.class){
-                        sendSuccessCallBack(callBack,str);
-                    }else{
-                        Object object = JsonUtils.deserialize(str, callBack.mType);
-                        sendSuccessCallBack(callBack, object);
+                try {
+                    Log.i("okhttp", "response" + response.toString());
+                    String str = response.body().string();
+                    if (callback.mType == String.class) {
+                        sendSuccessCallBack(callback, str);
+                    } else {
+                        Object object = JsonUtils.deserialize(str, callback.mType);
+                        sendSuccessCallBack(callback, object);
                     }
-                }catch (final Exception e){
-                    sendFailCallback(callBack, e);
+                } catch (final Exception e) {
+                   // LogUtils.e(TAG, "convert json failure", e);
+                    sendFailCallback(callback, e);
                 }
+
             }
         });
     }
-    private void sendSuccessCallBack(final ResultCallback callback, final Object obj) {
-        mDelivery.post(new Runnable() {
-            @Override
-            public void run() {
-                if (callback != null) {
-                    callback.onSuccess(obj);
-                }
-            }
-        });
-    }
+
     private void sendFailCallback(final ResultCallback callback, final Exception e) {
         mDelivery.post(new Runnable() {
             @Override
@@ -107,46 +123,65 @@ public class OkHttpUtils {
             }
         });
     }
-    private String checkString(String response){
-        response = response.replace("\\/","/");
-        return response;
+
+    private void sendSuccessCallBack(final ResultCallback callback, final Object obj) {
+        mDelivery.post(new Runnable() {
+            @Override
+            public void run() {
+                if (callback != null) {
+                    callback.onSuccess(obj);
+                }
+            }
+        });
+    }
+
+    private Request buildPostRequest(String url, List<Param> params) {
+        FormEncodingBuilder builder = new FormEncodingBuilder();
+        for (Param param : params) {
+            builder.add(param.key, param.value);
+        }
+        RequestBody requestBody = builder.build();
+        return new Request.Builder().url(url).post(requestBody).build();
     }
 
 
-
-    /*********************对外开放接口******************************/
+    /**********************对外接口************************/
 
     /**
-     * get request
-     * @param url
-     * @param callback
+     * get请求
+     * @param url  请求url
+     * @param callback  请求回调
      */
-    public static void get(String url,ResultCallback callback){
-        getInstance().getRequest(url,callback);
+    public static void get(String url, ResultCallback callback) {
+        getmInstance().getRequest(url, callback);
     }
 
     /**
-     * post request
-     * @param url
-     * @param callback
-     * @param params
+     * post请求
+     * @param url       请求url
+     * @param callback  请求回调
+     * @param params    请求参数
      */
-    public static void post(String url,ResultCallback callback,List<Param> params){
-        getInstance().postRequest(url,callback,params);
+    public static void post(String url, final ResultCallback callback, List<Param> params) {
+        getmInstance().postRequest(url, callback, params);
     }
+
     /**
      * http请求回调类,回调方法在UI线程中执行
      * @param <T>
      */
-    public static abstract class ResultCallback<T>{
+    public static abstract class ResultCallback<T> {
+
         Type mType;
+
         public ResultCallback(){
-            mType = getSuperclassTypeParameter(getClass());
             Log.i("zxg","getClass: "+getClass());
-            //getClass:NewsModelImpl$1 在NewsModelImpl 创建了ResultCallback的匿名内部类，所以类名为1
+            mType = getSuperclassTypeParameter(getClass());
+            Log.i("zxg","ResultCallback mType: "+mType);
         }
-        static Type getSuperclassTypeParameter(Class<?> subclass){
-            //返回本类的父类，包含泛型参数信息
+
+        static Type getSuperclassTypeParameter(Class<?> subclass) {
+            //get subclass superclass
             Type superclass = subclass.getGenericSuperclass();
             Log.i("zxg","type superclass: "+superclass);
             // superclass:OkHttpUtils$ResultCallback<java.lang.String>
@@ -154,11 +189,11 @@ public class OkHttpUtils {
                 throw new RuntimeException("Missing type parameter.");
             }
             ParameterizedType parameterized = (ParameterizedType) superclass;
-            Log.i("zxg", "parameterized:" + parameterized);
-            // parameterized:OkHttpUtils$ResultCallback<java.lang.String>
-            //parameterized.getActualTypeArguments()[0] ：返回泛型的类型：java.lang.String
+            Log.i("zxg","parameterized:"+parameterized);
+            Log.i("zxg","getActualTypeArguments()[0]:"+parameterized.getActualTypeArguments()[0]);
             return $Gson$Types.canonicalize(parameterized.getActualTypeArguments()[0]);
         }
+
         /**
          * 请求成功回调
          * @param response
@@ -170,17 +205,25 @@ public class OkHttpUtils {
          * @param e
          */
         public abstract void onFailure(Exception e);
-
     }
-    public static class Param{
+
+    /**
+     * post请求参数类
+     */
+    public static class Param {
+
         String key;
         String value;
-        public Param(){
 
+        public Param() {
         }
-        public Param(String key,String value){
+
+        public Param(String key, String value) {
             this.key = key;
             this.value = value;
         }
+
     }
+
+
 }

@@ -55,4 +55,8 @@ public class JsonUtils {
     public static <T> T deserialize(String json, Type type) throws JsonSyntaxException {
         return mGson.fromJson(json, type);
     }
+
+    public static String dealToJsonString(String str){
+        return str.substring(30,str.length()-1);
+    }
 }

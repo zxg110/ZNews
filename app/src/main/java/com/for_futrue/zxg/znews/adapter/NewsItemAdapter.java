@@ -72,9 +72,9 @@ public class NewsItemAdapter extends BaseAdapter{
             holder = (ViewHolder)convertView.getTag();
         }
         holder.newsTitle.setText(newsList.get(position).getTitle());
-        holder.newsDesc.setText(newsList.get(position).getKey());
-        holder.newsAddress.setText(newsList.get(position).getAddress());
-        imageLoader.displayImage(newsList.get(position).getImageUrl(),holder.leftImage,options);
+        holder.newsDesc.setText(newsList.get(position).getDigest());
+        holder.newsAddress.setText(newsList.get(position).getSource());
+        imageLoader.displayImage(newsList.get(position).getImgsrc(),holder.leftImage,options);
         return convertView;
     }
     static class ViewHolder{

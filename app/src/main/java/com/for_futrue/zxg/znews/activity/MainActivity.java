@@ -27,6 +27,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> implements
         MainNewsView {
 
+
     @ViewInject(R.id.channel_content_layout)
     private LinearLayout channelContent;
 
@@ -104,6 +105,8 @@ public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> impl
                             localView.setSelected(true);
                             localView.setTextAppearance(MainActivity.this, R.style
                                     .top_category_scroll_view_item_text_selected);
+                            fragmentViewPager.setCurrentItem(channelTextView.getId());
+
 
                         }
                     }
@@ -117,7 +120,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> impl
         newsFragmentList.clear();
         for (Channel channel : channelList) {
             Bundle data = new Bundle();
-            data.putString("desc", channel.getDesc());
+            data.putInt("desc", channel.getDesc());
             NewsFragment newsFragment = new NewsFragment();
             newsFragment.setArguments(data);
             newsFragmentList.add(newsFragment);

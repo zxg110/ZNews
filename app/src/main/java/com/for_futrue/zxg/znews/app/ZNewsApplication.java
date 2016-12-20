@@ -18,6 +18,8 @@ import java.io.File;
  */
 public class ZNewsApplication  extends Application{
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();
