@@ -1,8 +1,9 @@
-package com.for_futrue.zxg.znews.widget;
+package com.for_futrue.zxg.znews.util;
 
 import android.util.Log;
 
 import com.for_futrue.zxg.znews.bean.News;
+import com.for_futrue.zxg.znews.bean.NewsDetail;
 import com.for_futrue.zxg.znews.util.JsonUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -56,19 +57,19 @@ public class NewsUtil {
         return beans;
     }
 
-//    public static NewsDetailBean readJsonNewsDetailBeans(String res, String docId) {
-//        NewsDetailBean newsDetailBean = null;
-//        try {
-//            JsonParser parser = new JsonParser();
-//            JsonObject jsonObj = parser.parse(res).getAsJsonObject();
-//            JsonElement jsonElement = jsonObj.get(docId);
-//            if(jsonElement == null) {
-//                return null;
-//            }
-//            newsDetailBean = JsonUtils.deserialize(jsonElement.getAsJsonObject(), NewsDetailBean.class);
-//        } catch (Exception e) {
-//            LogUtils.e(TAG, "readJsonNewsBeans error" , e);
-//        }
-//        return newsDetailBean;
-//    }
+    public static NewsDetail readJsonNewsDetailBeans(String res, String docId) {
+        NewsDetail newsDetailBean = null;
+        try {
+            JsonParser parser = new JsonParser();
+            JsonObject jsonObj = parser.parse(res).getAsJsonObject();
+            JsonElement jsonElement = jsonObj.get(docId);
+            if(jsonElement == null) {
+                return null;
+            }
+            newsDetailBean = JsonUtils.deserialize(jsonElement.getAsJsonObject(), NewsDetail.class);
+        } catch (Exception e) {
+            Log.e(TAG, "readJsonNewsBeans error" , e);
+        }
+        return newsDetailBean;
+    }
 }

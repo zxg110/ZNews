@@ -3,16 +3,12 @@ package com.for_futrue.zxg.znews.datasource;
 import android.os.Message;
 import android.util.Log;
 
-import com.for_futrue.zxg.znews.bean.JsonBean;
 import com.for_futrue.zxg.znews.bean.News;
 import com.for_futrue.zxg.znews.presenter.NewsPresenter;
-import com.for_futrue.zxg.znews.util.JsonUtils;
 import com.for_futrue.zxg.znews.util.OkHttpUtils;
 
 import com.for_futrue.zxg.znews.util.UrlsUtils;
-import com.for_futrue.zxg.znews.widget.NewsUtil;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.for_futrue.zxg.znews.util.NewsUtil;
 
 import java.util.List;
 
