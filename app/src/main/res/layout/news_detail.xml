@@ -15,11 +15,30 @@
         android:layout_below="@id/title_bar"
         android:background="@color/detail_divider_day" />
 
+    <TextView
+        android:id="@+id/news_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/news_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <org.sufficientlysecure.htmltextview.HtmlTextView
+        android:id="@+id/htNewsContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:textAppearance="@android:style/TextAppearance.Medium" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true">
 
-
+        <include
+            android:id="@+id/bottom_bar"
+            layout="@layout/bottom_action_bar"/>
     </FrameLayout>
 </LinearLayout>

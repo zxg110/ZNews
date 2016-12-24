@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.for_futrue.zxg.znews.R;
 import com.for_futrue.zxg.znews.bean.News;
 import com.for_futrue.zxg.znews.util.ImageLoaderOption;
+import com.for_futrue.zxg.znews.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -26,8 +27,6 @@ public class NewsItemAdapter extends BaseAdapter{
     private Context mContext;
     private List<News> newsList;
     private LayoutInflater mInflater = null;
-    private DisplayImageOptions options;
-    protected ImageLoader imageLoader = ImageLoader.getInstance();
     public NewsItemAdapter(Context context){
         this.mContext = context;
         mInflater = LayoutInflater.from(context);
@@ -35,7 +34,6 @@ public class NewsItemAdapter extends BaseAdapter{
     public void setNewsData(List<News> newsList){
         this.newsList = newsList;
 
-        options = ImageLoaderOption.getOptions();
         Log.i("zxg","adapter size:"+newsList.size());
     }
     @Override
@@ -74,14 +72,17 @@ public class NewsItemAdapter extends BaseAdapter{
         holder.newsTitle.setText(newsList.get(position).getTitle());
         holder.newsDesc.setText(newsList.get(position).getDigest());
         holder.newsAddress.setText(newsList.get(position).getSource());
-        imageLoader.displayImage(newsList.get(position).getImgsrc(),holder.leftImage,options);
+        ImageLoaderUtil.display(holder.leftImage,newsList.get(position).getImgsrc());
         return convertView;
     }
-    static class ViewHolder{
+
+
+    static class ViewHolder {
         public ImageView leftImage;
         public TextView newsTitle;
         public TextView newsDesc;
         public TextView newsAddress;
+
 
     }
 }

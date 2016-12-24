@@ -1,6 +1,7 @@
 package com.for_futrue.zxg.znews.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -9,11 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.for_futrue.zxg.znews.R;
+import com.for_futrue.zxg.znews.activity.NewsDetailActivity;
 import com.for_futrue.zxg.znews.adapter.NewsItemAdapter;
 import com.for_futrue.zxg.znews.bean.News;
 import com.for_futrue.zxg.znews.presenter.NewsPresenter;
@@ -63,6 +66,15 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
                 case SET_NEWS_DATA:
                     Log.i(TAG,"handler GET_NEWS_DTAT ");
                     newsListView.setAdapter(mAdapter);
+                    newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            News news = (News)mAdapter.getItem(position);
+                            Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                            intent.putExtra("news",news);
+                            startActivity(intent);
+                        }
+                    });
 
                 break;
                 case GET_NEWS_DATA:

@@ -11,4 +11,5 @@
     <color name="item_title_disabled">#ff888888</color>
     <color name="item_address">#ff999999</color>
     <color name="detail_divider_day">#bebcbc</color>
+    <item name="toolbar_bg" type="color">@color/activity_bg_color</item>
 </resources>
