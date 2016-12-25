@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface NewsDataSource {
     void loadNewsListByChannel(int channelDesc,Message msg);
-    String getNewsContentByUrl(String url);
+    void getNewsContentByUrl(String docId,Message msg);
 }

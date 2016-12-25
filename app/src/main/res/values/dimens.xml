@@ -13,4 +13,5 @@
     <dimen name="news_item_left_image_width">80dip</dimen>
     <dimen name="news_item_left_image_height">70dip</dimen>
     <dimen name="bottom_bar_height">40dip</dimen>
+    <dimen name="news_detail_title">20sp</dimen>
 </resources>

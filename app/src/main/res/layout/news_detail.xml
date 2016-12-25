@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/activity_bg_color">
 
     <include
         android:id="@+id/title_bar"
@@ -18,23 +21,31 @@
     <TextView
         android:id="@+id/news_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/news_detail_title"/>
+    <ScrollView  android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/activity_bg_color">
+            <ImageView
+                android:id="@+id/news_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-    <ImageView
-        android:id="@+id/news_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <org.sufficientlysecure.htmltextview.HtmlTextView
+            <org.sufficientlysecure.htmltextview.HtmlTextView
         android:id="@+id/htNewsContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:textAppearance="@android:style/TextAppearance.Medium" />
-
+        </LinearLayout>
+    </ScrollView>
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
         <include

@@ -17,6 +17,8 @@ public class UrlsUtils {
     private static final String COMMON_URL = "nc/article/list/";
 
     private static final String DETAIL_URL = HOST +"nc/article/";
+
+    private static final String END_DETAIL_URL = "/full.html";
     //推荐
     private static final String RECOMMEND_ID = "T1370583240249";
     //头条
@@ -108,7 +110,7 @@ public class UrlsUtils {
     }
 
     public static String getDetailUrl(String docId){
-        return DETAIL_URL + docId;
+        return DETAIL_URL + docId+END_DETAIL_URL;
     }
     public static void main(String[] args){
         System.out.print("test:"+getUrlByChannel(1));

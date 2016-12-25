@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.for_futrue.zxg.znews.Model.NewsModel;
 import com.for_futrue.zxg.znews.R;
 import com.for_futrue.zxg.znews.bean.News;
 import com.for_futrue.zxg.znews.bean.NewsDetail;
@@ -17,6 +18,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
 import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 /**
@@ -32,7 +34,7 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
     private ImageView newsImage;
 
     @ViewInject(R.id.htNewsContent)
-    private HtmlTextView newsContent;
+    private HtmlTextView mTVNewsContent;
 
     @ViewInject(R.id.ic_favor)
     private Button actionFavor;
@@ -48,6 +50,7 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
 
     private News currentNews;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG,"onCreate()...");
@@ -62,11 +65,12 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
 
     private void initView(){
         titleTextView.setText(currentNews.getTitle());
-        ImageLoaderUtil.display(newsImage,currentNews.getImgsrc());
+        ImageLoaderUtil.display(newsImage, currentNews.getImgsrc());
+        getPresenter().loadNewsDetail(currentNews.getDocid());
     }
     @Override
     NewsDetailView getUi() {
-        return null;
+        return this;
     }
 
     @Override
@@ -77,5 +81,21 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
     @Override
     public NewsDetailPresenter getPresenter() {
         return super.getPresenter();
+    }
+
+    @Override
+    public void showNewsDetialContent(String newsDetailContent) {
+        Log.i(TAG,"newsDetailContent:"+newsDetailContent);
+        mTVNewsContent.setHtml(newsDetailContent,new HtmlResImageGetter(mTVNewsContent));
+    }
+
+    @Override
+    public void showLoadProgress(boolean isShow){
+
+    }
+
+    @Override
+    public void showError(String error){
+
     }
 }

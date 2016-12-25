@@ -153,6 +153,7 @@ public class OkHttpUtils {
      * @param callback  请求回调
      */
     public static void get(String url, ResultCallback callback) {
+        Log.i("zxg","url111:"+url);
         getmInstance().getRequest(url, callback);
     }
 

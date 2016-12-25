@@ -16,7 +16,7 @@ public class DataBaseSource implements NewsDataSource{
     }
 
     @Override
-    public String getNewsContentByUrl(String url) {
-        return null;
+    public void getNewsContentByUrl(String url,Message msg) {
+
     }
 }

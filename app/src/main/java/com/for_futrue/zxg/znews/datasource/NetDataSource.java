@@ -4,6 +4,8 @@ import android.os.Message;
 import android.util.Log;
 
 import com.for_futrue.zxg.znews.bean.News;
+import com.for_futrue.zxg.znews.bean.NewsDetail;
+import com.for_futrue.zxg.znews.presenter.NewsDetailPresenter;
 import com.for_futrue.zxg.znews.presenter.NewsPresenter;
 import com.for_futrue.zxg.znews.util.OkHttpUtils;
 
@@ -48,7 +50,29 @@ public class NetDataSource implements NewsDataSource{
     }
 
     @Override
-    public String getNewsContentByUrl(String url) {
-        return null;
+    public void getNewsContentByUrl(final String docId,final Message msg) {
+        String url = UrlsUtils.getDetailUrl(docId);
+        OkHttpUtils.ResultCallback<String> loadNewsDetailCallback = new OkHttpUtils.ResultCallback<String>() {
+
+
+            @Override
+            public void onSuccess(String response) {
+                Log.i(TAG,"response111:"+response);
+                NewsDetail newsDetail = NewsUtil.readJsonNewsDetailBeans(response,docId);
+                msg.obj = newsDetail;
+                Log.i(TAG,"newsDetail:"+newsDetail.toString());
+                msg.what = NewsDetailPresenter.GET_DATA_SUCCESS;
+                msg.sendToTarget();
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                msg.what = NewsDetailPresenter.GET_DATA_FAIL;
+                msg.obj = "加载失败";
+                msg.sendToTarget();
+            }
+        };
+        OkHttpUtils.get(url,loadNewsDetailCallback);
+
     }
 }
