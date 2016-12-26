@@ -2,6 +2,8 @@ package com.for_futrue.zxg.znews.activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,8 +35,8 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
     @ViewInject(R.id.news_image)
     private ImageView newsImage;
 
-    @ViewInject(R.id.htNewsContent)
-    private HtmlTextView mTVNewsContent;
+//    @ViewInject(R.id.htNewsContent)
+//    private HtmlTextView mTVNewsContent;
 
     @ViewInject(R.id.ic_favor)
     private Button actionFavor;
@@ -47,6 +49,10 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
 
     @ViewInject(R.id.ic_comment)
     private Button actionComment;
+
+    @ViewInject(R.id.htNewsContent1)
+    private WebView webView;
+
 
     private News currentNews;
 
@@ -85,8 +91,12 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
 
     @Override
     public void showNewsDetialContent(String newsDetailContent) {
-        Log.i(TAG,"newsDetailContent:"+newsDetailContent);
-        mTVNewsContent.setHtml(newsDetailContent,new HtmlResImageGetter(mTVNewsContent));
+        Log.i(TAG, "newsDetailContent:" + newsDetailContent);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setSupportZoom(true);
+        webSettings.setTextSize(WebSettings.TextSize.LARGER);
+        webView.loadData(newsDetailContent,"text/html; charset=UTF-8",null);
+
     }
 
     @Override

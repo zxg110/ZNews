@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.for_futrue.zxg.znews.Model.NewsModel;
+import com.for_futrue.zxg.znews.Model.NewsModelImpl;
 import com.for_futrue.zxg.znews.bean.News;
 import com.for_futrue.zxg.znews.datasource.DataSourceFactory;
 import com.for_futrue.zxg.znews.datasource.NewsDataSource;
@@ -25,7 +27,7 @@ public class NewsPresenter extends Presenter<NewsFragmentUi> {
     public final static int GET_DATA_SUCCESS = 0;
     public final static int GET_DATA_FAIL = 1;
     private Context mContext;
-    private NewsDataSource newsDataSource;
+    private NewsModel newsModelImpl;
     private final Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -43,14 +45,14 @@ public class NewsPresenter extends Presenter<NewsFragmentUi> {
         }
     };
     public NewsPresenter() {
+        this.newsModelImpl = new NewsModelImpl();
     }
 
     public void loadNewsByChannel(int channelDesc) {
-        if(newsDataSource == null){
-            getNewsDataSource();
-        }
+
         Message msg = Message.obtain(mHandler);
-        newsDataSource.loadNewsListByChannel(channelDesc, msg);
+
+        newsModelImpl.loadNewsListByChannel(channelDesc, msg);
     }
 
     private boolean isNetworkAvaiable() {
@@ -66,13 +68,7 @@ public class NewsPresenter extends Presenter<NewsFragmentUi> {
         }
         return false;
     }
-    private void getNewsDataSource(){
-//        if(isNetworkAvaiable()){
-            newsDataSource = DataSourceFactory.getInstance(DataSourceFactory.NET_DATA_SOURCE);
-//        }else{
-//            newsDataSource = DataSourceFactory.getInstance(DataSourceFactory.DATABASE_SOURCE);
-//        }
-    }
+
 
     public Context getmContext() {
         return mContext;

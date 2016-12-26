@@ -21,7 +21,7 @@ public class NewsModelImpl implements NewsModel{
 
     @Override
     public void loadNewsListByChannel(int channel, Message msg) {
-
+        newsDataSource.loadNewsListByChannel(channel,msg);
     }
 
     @Override
