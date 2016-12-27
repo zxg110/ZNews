@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="activity_bg_color">#fff5f5f5</color>
+    <color name="activity_bg_color1">#f9f9f9</color>
     <color name="scroll_bar_color">#fff3f3f3</color>
     <color name="channel_text_selected">#f1445ce3</color>
     <color name="channel_text">#e498999e</color>
@@ -11,5 +11,6 @@
     <color name="item_title_disabled">#ff888888</color>
     <color name="item_address">#ff999999</color>
     <color name="detail_divider_day">#bebcbc</color>
-    <item name="toolbar_bg" type="color">@color/activity_bg_color</item>
+    <item name="toolbar_bg" type="color">@color/activity_bg_color1</item>
+    <color name="news_detail_title">#221f1f</color>
 </resources>

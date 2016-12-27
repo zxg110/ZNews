@@ -1,5 +1,7 @@
 package com.for_futrue.zxg.znews.activity;
 
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebSettings;
@@ -50,7 +52,7 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
     @ViewInject(R.id.ic_comment)
     private Button actionComment;
 
-    @ViewInject(R.id.htNewsContent1)
+    @ViewInject(R.id.webView)
     private WebView webView;
 
 
@@ -70,6 +72,7 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
     }
 
     private void initView(){
+
         titleTextView.setText(currentNews.getTitle());
         ImageLoaderUtil.display(newsImage, currentNews.getImgsrc());
         getPresenter().loadNewsDetail(currentNews.getDocid());
@@ -95,6 +98,8 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
         WebSettings webSettings = webView.getSettings();
         webSettings.setSupportZoom(true);
         webSettings.setTextSize(WebSettings.TextSize.LARGER);
+        webView.setBackgroundColor(this.getResources().getColor(R.color.activity_bg_color1)); // 设置背景色
+//        webView.getBackground().setAlpha(2);
         webView.loadData(newsDetailContent,"text/html; charset=UTF-8",null);
 
     }
