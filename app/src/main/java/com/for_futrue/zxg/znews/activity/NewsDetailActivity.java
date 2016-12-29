@@ -4,10 +4,12 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.for_futrue.zxg.znews.Model.NewsModel;
@@ -28,7 +30,7 @@ import org.sufficientlysecure.htmltextview.HtmlTextView;
 /**
  * Created by zxg on 2016/12/22.
  */
-public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDetailView> implements NewsDetailView{
+public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDetailView> implements NewsDetailView,View.OnClickListener{
 
     private final static String TAG = NewsDetailActivity.class.getSimpleName();
     @ViewInject(R.id.news_title)
@@ -37,24 +39,26 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
     @ViewInject(R.id.news_image)
     private ImageView newsImage;
 
-//    @ViewInject(R.id.htNewsContent)
-//    private HtmlTextView mTVNewsContent;
+    @ViewInject(R.id.detail_head_layout)
+    private RelativeLayout mDetailHeadLayout;
 
     @ViewInject(R.id.ic_favor)
-    private Button actionFavor;
+    private ImageView mFavorImage;
 
     @ViewInject(R.id.ic_report)
-    private Button actionReport;
+    private ImageView mReportImage;
 
     @ViewInject(R.id.ic_repost)
-    private Button actionRepost;
+    private ImageView mRepostImage;
 
     @ViewInject(R.id.ic_comment)
-    private Button actionComment;
+    private ImageView mCommentImage;
 
     @ViewInject(R.id.webView)
     private WebView webView;
 
+    @ViewInject(R.id.btn_back)
+    private ImageView mBackImage;
 
     private News currentNews;
 
@@ -72,7 +76,11 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
     }
 
     private void initView(){
-
+        mFavorImage.setOnClickListener(this);
+        mReportImage.setOnClickListener(this);
+        mRepostImage.setOnClickListener(this);
+        mCommentImage.setOnClickListener(this);
+        mBackImage.setOnClickListener(this);
         titleTextView.setText(currentNews.getTitle());
         ImageLoaderUtil.display(newsImage, currentNews.getImgsrc());
         getPresenter().loadNewsDetail(currentNews.getDocid());
@@ -112,5 +120,39 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
     @Override
     public void showError(String error){
 
+    }
+
+    private void onFavorImageClicked(){
+        mFavorImage.setSelected(true);
+    }
+    private void onCommentImageClicked(){
+
+    }
+    private void onReportImageClicked(){
+
+    }
+    private void onRepostImageClicked(){
+
+    }
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        Log.i(TAG,"onClick(View"+ v+", id "+id+")...");
+        switch (id){
+            case R.id.ic_comment:
+                onCommentImageClicked();
+                break;
+            case R.id.ic_favor:
+                onFavorImageClicked();
+                break;
+            case R.id.ic_repost:
+                onRepostImageClicked();
+                break;
+            case R.id.ic_report:
+                onReportImageClicked();
+                break;
+            case R.id.btn_back:
+                onBackPressed();
+        }
     }
 }

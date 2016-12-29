@@ -3,6 +3,7 @@ package com.for_futrue.zxg.znews.util;
 import android.util.Log;
 
 import com.for_futrue.zxg.znews.bean.Channel;
+import com.for_futrue.zxg.znews.presenter.MainPresenter;
 
 /**
  * Created by zxg on 2016/10/3.
@@ -55,37 +56,37 @@ public class UrlsUtils {
 
     public static String getIDByChannel(int channelDesc){
         switch (channelDesc){
-            case Channel.CHANNEL_AMUSEMENT:
+            case MainPresenter.CHANNEL_AMUSEMENT:
                 return AMUSEMENT_ID;
-            case Channel.CHANNEL_CAR:
+            case MainPresenter.CHANNEL_CAR:
                 return CAR_ID;
-            case Channel.CHANNEL_DITIGAL:
+            case MainPresenter.CHANNEL_DITIGAL:
                 return DITIGAL_ID;
-            case Channel.CHANNEL_ECONOMICS:
+            case MainPresenter.CHANNEL_ECONOMICS:
                 return ECONOMICS_ID;
-            case Channel.CHANNEL_EDUCATION:
+            case MainPresenter.CHANNEL_EDUCATION:
                 return EDUCATION_ID;
-            case Channel.CHANNEL_JOKE:
+            case MainPresenter.CHANNEL_JOKE:
                 return JOKE_ID;
-            case Channel.CHANNEL_GAME:
+            case MainPresenter.CHANNEL_GAME:
                 return GAME_ID;
-            case Channel.CHANNEL_HEADLINE:
+            case MainPresenter.CHANNEL_HEADLINE:
                 return HEADLINE_ID;
-            case Channel.CHANNEL_MILITARY:
+            case MainPresenter.CHANNEL_MILITARY:
                 return MILITARY_ID;
-            case Channel.CHANNEL_PHONE:
+            case MainPresenter.CHANNEL_PHONE:
                 return PHONE_ID;
-            case Channel.CHANNEL_MOM:
+            case MainPresenter.CHANNEL_MOM:
                 return MOM_ID;
-            case Channel.CHANNEL_SPORTS:
+            case MainPresenter.CHANNEL_SPORTS:
                 return SPORTS_ID;
-            case Channel.CHANNEL_RECOMMEND:
+            case MainPresenter.CHANNEL_RECOMMEND:
                 return RECOMMEND_ID;
-            case Channel.CHANNEL_TRAVEL:
+            case MainPresenter.CHANNEL_TRAVEL:
                 return TRAVEL_ID;
-            case Channel.CHANNEL_TECHNOLOGY:
+            case MainPresenter.CHANNEL_TECHNOLOGY:
                 return TECHNOLOGY_ID;
-            case Channel.CHANNEL_NBA:
+            case MainPresenter.CHANNEL_NBA:
                 return NBA_ID;
             default:
                 return UNDEFINED;

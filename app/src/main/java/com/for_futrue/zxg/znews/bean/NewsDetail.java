@@ -1,12 +1,13 @@
 package com.for_futrue.zxg.znews.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Description : 新闻详情实体类
  * Created by zxg on 2016/12/21.
  */
-public class NewsDetail {
+public class NewsDetail implements Serializable{
     /**
      * docid
      */

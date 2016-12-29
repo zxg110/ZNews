@@ -3,7 +3,7 @@
                 style="@style/title_bar_style">
 
     <ImageView
-        android:id="@+id/btn_menu"
+        android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:padding="15.0dip"

@@ -1,34 +1,25 @@
 package com.for_futrue.zxg.znews.bean;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 
 /**
  * Created by zxg on 2016/3/21.
  */
+@DatabaseTable()
 public class Channel implements Serializable{
 
-    public static final int CHANNEL_RECOMMEND = 0;
-    public static final int CHANNEL_HEADLINE = 1;
-    public static final int CHANNEL_AMUSEMENT = 2;
-    public static final int CHANNEL_SPORTS = 3;
-    public static final int CHANNEL_ECONOMICS = 4;
-    public static final int CHANNEL_MILITARY = 6;
-    public static final int CHANNEL_PHONE = 7;
-    public static final int CHANNEL_TECHNOLOGY = 8;
-    public static final int CHANNEL_GAME = 9;
-    public static final int CHANNEL_DITIGAL = 10;
-    public static final int CHANNEL_EDUCATION = 11;
-    public static final int CHANNEL_JOKE = 12;
-    public static final int CHANNEL_CAR = 13;
-    public static final int CHANNEL_NBA= 14;
-    public static final int CHANNEL_TRAVEL = 16;
-    public static final int CHANNEL_MOM = 17;
-
-
+    @DatabaseField(generatedId = true)
     private Integer id;
+    @DatabaseField(columnName = "name")
     private String name;
+    @DatabaseField(columnName = "orderId")
     private Integer orderId;
+    @DatabaseField(columnName = "selected")
     private Integer selected;
+    @DatabaseField(columnName = "desc")
     private int desc;
 
     public int getDesc() {
