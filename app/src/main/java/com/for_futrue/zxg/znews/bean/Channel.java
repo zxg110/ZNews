@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * Created by zxg on 2016/3/21.
  */
-@DatabaseTable()
+@DatabaseTable(tableName = "tb_channel")
 public class Channel implements Serializable{
 
     @DatabaseField(generatedId = true)
@@ -68,6 +68,10 @@ public class Channel implements Serializable{
         this.orderId = orderId;
         this.selected = selected;
         this.desc = desc;
+    }
+
+    public Channel(){
+
     }
 
     @Override

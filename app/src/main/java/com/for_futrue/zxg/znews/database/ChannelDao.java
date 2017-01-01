@@ -1,7 +1,9 @@
 package com.for_futrue.zxg.znews.database;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.for_futrue.zxg.znews.R;
 import com.for_futrue.zxg.znews.bean.Channel;
 import com.j256.ormlite.dao.Dao;
 
@@ -20,7 +22,9 @@ public class ChannelDao {
         this.context = context;
         try{
             helper = NewsDatabaseHelper.getHelper(context);
+            Log.i("zxg111","helper:"+helper);
             channelDao = helper.getDao(Channel.class);
+            Log.i("zxg111","channelDao:"+channelDao);
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -52,4 +56,5 @@ public class ChannelDao {
         }
         return null;
     }
+
 }

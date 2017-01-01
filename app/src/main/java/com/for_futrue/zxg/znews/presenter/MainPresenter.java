@@ -3,8 +3,10 @@ package com.for_futrue.zxg.znews.presenter;
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.for_futrue.zxg.znews.bean.Channel;
+import com.for_futrue.zxg.znews.database.ChannelDao;
 import com.for_futrue.zxg.znews.view.MainNewsView;
 import com.for_futrue.zxg.znews.view.Ui;
 
@@ -15,6 +17,7 @@ import java.util.List;
  * Created by zxg on 2016/3/21.
  */
 public class MainPresenter extends Presenter<MainNewsView>{
+    private final static String TAG = MainPresenter.class.getSimpleName();
     private Context mContext;
     public static final int CHANNEL_RECOMMEND = 0;
     public static final int CHANNEL_HEADLINE = 1;
@@ -36,21 +39,10 @@ public class MainPresenter extends Presenter<MainNewsView>{
         mContext = context;
     }
     public List<Channel> getUserChannel(){
+        ChannelDao channelDao= new ChannelDao(mContext);
         List<Channel> channelList = new ArrayList<Channel>();
-        Channel c1 = new Channel(1,"头条",1,1,1);
-        Channel c2 = new Channel(1,"娱乐",2,1,2);
-        Channel c3 = new Channel(1,"体育",1,3,3);
-        Channel c4 = new Channel(1,"科技",1,4,8);
-        Channel c5 = new Channel(1,"财经",1,5,4);
-        Channel c6 = new Channel(1,"轻松一刻",1,6,12);
-        Channel c7 = new Channel(1,"游戏",1,7,10);
-        channelList.add(c1);
-        channelList.add(c2);
-        channelList.add(c3);
-        channelList.add(c4);
-        channelList.add(c5);
-        channelList.add(c6);
-        channelList.add(c7);
+        channelList = channelDao.queryChannelBySelected();
+        Log.i(TAG,"channelListSize:"+channelList.size());
         return channelList;
     }
 

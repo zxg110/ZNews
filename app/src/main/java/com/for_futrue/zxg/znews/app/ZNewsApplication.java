@@ -18,14 +18,21 @@ import java.io.File;
  */
 public class ZNewsApplication  extends Application{
 
-
+    public static ZNewsApplication application;
 
     @Override
     public void onCreate() {
         super.onCreate();
         initImageLoader(getApplicationContext());
+        application = this;
     }
 
+    public static Context getApplication(){
+        if(application !=null){
+            return  application;
+        }
+        return null;
+    }
     /* init imageloader*/
     public static void initImageLoader(Context context){
         File cacheDir = StorageUtils.getOwnCacheDirectory(context, "imageloaderdemo/Cache");
