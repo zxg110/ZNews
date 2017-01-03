@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/activity_bg_color1"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    >
+
 
     <include
         layout="@layout/main_head" />
@@ -36,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dip">
         <ImageView
-            android:id="@+id/btn_more_category"
+            android:id="@+id/btn_more_channel"
             android:layout_width="40dip"
             android:layout_height="40dip"
             android:src="@drawable/btn_add_channel"
@@ -49,6 +51,13 @@
         android:layout_width="fill_parent"
         android:layout_height="5dip"
         android:background="#ffdddddd" />
+    <FrameLayout
+        android:id="@+id/main_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+    </FrameLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/mViewPager"
