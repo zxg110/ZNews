@@ -8,7 +8,6 @@ import android.util.Log;
 import com.for_futrue.zxg.znews.bean.Channel;
 import com.for_futrue.zxg.znews.database.ChannelDao;
 import com.for_futrue.zxg.znews.view.MainNewsView;
-import com.for_futrue.zxg.znews.view.Ui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +39,8 @@ public class MainPresenter extends Presenter<MainNewsView>{
     }
     public List<Channel> getUserChannel(){
         ChannelDao channelDao= new ChannelDao(mContext);
-        List<Channel> channelList = new ArrayList<Channel>();
-        channelList = channelDao.queryChannelBySelected();
+        List<Channel> channelList;
+        channelList = channelDao.queryChannelBySelected(ChannelPresenter.USER_CHANNEL);
         Log.i(TAG,"channelListSize:"+channelList.size());
         return channelList;
     }
@@ -51,6 +50,4 @@ public class MainPresenter extends Presenter<MainNewsView>{
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         return dm.widthPixels;
     }
-
-
 }

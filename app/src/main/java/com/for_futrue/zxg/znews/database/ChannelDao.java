@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.for_futrue.zxg.znews.R;
 import com.for_futrue.zxg.znews.bean.Channel;
+import com.for_futrue.zxg.znews.presenter.ChannelPresenter;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
@@ -46,11 +47,16 @@ public class ChannelDao {
         }
     }
 
-    public List<Channel> queryChannelBySelected(){
+    public List<Channel> queryChannelBySelected(int flag){
         try{
-            List<Channel> selectedChannelList;
-            selectedChannelList = channelDao.queryBuilder().where().eq("selected",1).query();
-            return selectedChannelList;
+            List<Channel> channelList;
+            if(flag == ChannelPresenter.USER_CHANNEL){
+                channelList = channelDao.queryBuilder().where().eq("selected",1).query();
+            }else{
+                channelList = channelDao.queryBuilder().where().eq("selected",0).query();
+            }
+
+            return channelList;
         }catch (SQLException e){
             e.printStackTrace();
         }

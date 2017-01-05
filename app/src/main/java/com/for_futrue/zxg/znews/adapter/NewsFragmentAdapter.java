@@ -32,4 +32,9 @@ public class NewsFragmentAdapter extends FragmentPagerAdapter{
         Object obj = super.instantiateItem(container, position);
         return obj;
     }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        //super.destroyItem(container, position, object);
+    }
 }

@@ -37,5 +37,8 @@
         <item >旅行</item>
         <item >亲子</item>
     </string-array>
-
+    <string name="subscribe_my_category">我的频道</string>
+    <string name="subscribe_more_category">更多频道</string>
+    <string name="subscribe_manager_category_info">单击增删频道</string>
+    <string name="subscribe_manager_category_info_2">单击增删频道，长按拖拽排序</string>
 </resources>

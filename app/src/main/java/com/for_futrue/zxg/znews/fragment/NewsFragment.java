@@ -133,6 +133,10 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
         /*
             loading data when this fragment visible and newList is null
          */
+        if(newsList != null){
+            Log.i("zxg33","newsList.size:"+newsList.size());
+        }
+
         if(isVisibleToUser && newsList == null){
             mHandler.obtainMessage(GET_NEWS_DATA).sendToTarget();
         }
