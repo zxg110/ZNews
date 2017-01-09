@@ -3,6 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#ffdddddd">
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -15,7 +16,7 @@
             android:orientation="vertical"
             android:paddingBottom="14.0dip" >
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10.0dip"
@@ -35,8 +36,19 @@
                     android:layout_marginLeft="12.0dip"
                     android:text="@string/subscribe_manager_category_info_2"
                     android:textColor="@color/subscribe_tip_text"
-                    android:textSize="11.0sp" />
-            </LinearLayout>
+                    android:textSize="11.0sp"
+                    android:layout_centerInParent="true"
+                    />
+
+                <ImageButton
+                    android:id="@+id/operate_button"
+                    android:layout_width="18dip"
+                    android:layout_height="18dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dip"
+                    android:background="@null"
+                    android:src="@mipmap/exit_back"/>
+            </RelativeLayout>
 
             <View
                 android:id="@+id/seperate_line"

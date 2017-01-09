@@ -1,21 +1,21 @@
 package com.for_futrue.zxg.znews.fragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.for_futrue.zxg.znews.R;
-import com.for_futrue.zxg.znews.activity.BaseActivity;
 import com.for_futrue.zxg.znews.adapter.DragAdapter;
 import com.for_futrue.zxg.znews.adapter.OtherDragAdapter;
 import com.for_futrue.zxg.znews.bean.Channel;
@@ -23,8 +23,6 @@ import com.for_futrue.zxg.znews.presenter.ChannelPresenter;
 import com.for_futrue.zxg.znews.view.ChannelFragmentUi;
 import com.for_futrue.zxg.znews.view.DragGrid;
 import com.for_futrue.zxg.znews.view.OtherGridView;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -33,6 +31,7 @@ import android.view.animation.TranslateAnimation;
 
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.List;
@@ -54,6 +53,8 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter,ChannelFragme
 
     private DragAdapter userAdapter;
     private OtherDragAdapter otherAdapter;
+    private ImageButton operateButton;
+    private boolean isOperate = false;
     /** 是否在移动，由于这边是动画结束后才进行的数据更替，设置这个限制为了避免操作太频繁造成的数据错乱。 */
     boolean isMove = false;
     private Activity mContext;
@@ -73,7 +74,6 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter,ChannelFragme
         super.onCreate(savedInstanceState);
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -84,6 +84,9 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter,ChannelFragme
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.channel_fragment,null);
         userDragGrid = (DragGrid)view.findViewById(R.id.userGridView);
         otherDragGrid = (OtherGridView)view.findViewById(R.id.otherGridView);
+
+
+
         initData();
         return view;
     }
@@ -91,15 +94,23 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter,ChannelFragme
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        operateButton = (ImageButton)getActivity().findViewById(R.id.operate_button);
+        operateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("zxg", "operate onclick");
+                if (isOperate) {
+                    dealOperate();
+                } else {
+                    getActivity().onBackPressed();
+                }
+            }
+        });
+
 
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        Log.i("zxg55","activity: "+activity);
-        mContext = activity;
-        super.onAttach(activity);
-    }
+
 
     private void initData(){
         userChannelList = getmPresenter().getChannel(ChannelPresenter.USER_CHANNEL);
@@ -111,10 +122,13 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter,ChannelFragme
         userDragGrid.setOnItemClickListener(this);
         otherDragGrid.setOnItemClickListener(this);
 
+
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
+        isOperate = true;
+        //operateButton.setImageResource(R.mipmap.icon_save);
         if(isMove){
             return;
         }
@@ -219,7 +233,7 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter,ChannelFragme
                     otherAdapter.setVisible(true);
                     otherAdapter.notifyDataSetChanged();
                     userAdapter.remove();
-                }else{
+                } else {
                     userAdapter.setVisible(true);
                     userAdapter.notifyDataSetChanged();
                     otherAdapter.remove();
@@ -265,5 +279,24 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter,ChannelFragme
         ImageView iv = new ImageView(getActivity());
         iv.setImageBitmap(cache);
         return iv;
+    }
+
+    public List<Channel> getUserChannelList(){
+        return userAdapter.channelList;
+    }
+    public List<Channel> getOtherChannelList(){
+        return otherAdapter.channelList;
+    }
+
+
+    private void dealOperate(){
+        Log.i("zxg","dealOpreate");
+        if(isOperate){
+            getmPresenter().saveChannel();
+            isOperate = false;
+            getmPresenter().onChannelUpdate();
+            Toast.makeText(mContext,"已更新频道",Toast.LENGTH_SHORT).show();
+        }
+        getActivity().onBackPressed();
     }
 }

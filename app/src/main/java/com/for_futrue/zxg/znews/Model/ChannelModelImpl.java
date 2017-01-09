@@ -23,4 +23,15 @@ public class ChannelModelImpl implements ChannelModel{
         this.mContext = context;
         mChannelDao = new ChannelDao(mContext);
     }
+
+    public void deleteAllChannel(){
+        mChannelDao.deleteAllChannel();
+    }
+
+    public void updateUserChannel(List<Channel> userChannelList){
+        mChannelDao.updateUserChannel(userChannelList);
+    }
+    public void updateOtherChannel(List<Channel> otherChannelList){
+        mChannelDao.updateOtherChannel(otherChannelList);
+    }
 }

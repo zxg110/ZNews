@@ -25,7 +25,7 @@ public class ChannelDao {
             helper = NewsDatabaseHelper.getHelper(context);
             Log.i("zxg111","helper:"+helper);
             channelDao = helper.getDao(Channel.class);
-            Log.i("zxg111","channelDao:"+channelDao);
+            Log.i("zxg111", "channelDao:" + channelDao);
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -47,13 +47,46 @@ public class ChannelDao {
         }
     }
 
+    public void deleteAllChannel(){
+        try{
+            List<Channel> allChannel = channelDao.queryForAll();
+            channelDao.delete(allChannel);
+        }catch (Exception e){
+
+        }
+    }
+    public void updateUserChannel(List<Channel> userChannelList){
+        try {
+            for(int i=0;i<userChannelList.size();i++){
+                Channel channel = userChannelList.get(i);
+                channel.setOrderId(i);
+                channel.setSelected(Integer.valueOf(1));
+                channelDao.create(channel);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void updateOtherChannel(List<Channel> otherChannelList){
+        try {
+            for(int i=0;i<otherChannelList.size();i++){
+                Channel channel = otherChannelList.get(i);
+                channel.setOrderId(i);
+                channel.setSelected(Integer.valueOf(0));
+                channelDao.create(channel);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public List<Channel> queryChannelBySelected(int flag){
         try{
             List<Channel> channelList;
             if(flag == ChannelPresenter.USER_CHANNEL){
-                channelList = channelDao.queryBuilder().where().eq("selected",1).query();
+                channelList = channelDao.queryBuilder().orderBy("orderId",true).where().eq("selected",1).query();
             }else{
-                channelList = channelDao.queryBuilder().where().eq("selected",0).query();
+                channelList = channelDao.queryBuilder().orderBy("orderId",true).where().eq("selected",0).query();
             }
 
             return channelList;

@@ -9,4 +9,10 @@ import java.util.List;
  */
 public interface ChannelModel {
     List<Channel> getChannelByFlag(int flag);
+
+    void deleteAllChannel();
+
+    void updateUserChannel(List<Channel> userChannelList);
+
+    void updateOtherChannel(List<Channel> otherChannelList);
 }

@@ -20,6 +20,7 @@ import com.for_futrue.zxg.znews.adapter.NewsFragmentAdapter;
 import com.for_futrue.zxg.znews.bean.Channel;
 import com.for_futrue.zxg.znews.fragment.ChannelFragment;
 import com.for_futrue.zxg.znews.fragment.NewsFragment;
+import com.for_futrue.zxg.znews.presenter.ChannelPresenter;
 import com.for_futrue.zxg.znews.presenter.MainPresenter;
 import com.for_futrue.zxg.znews.view.MainNewsView;
 import com.lidroid.xutils.ViewUtils;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> implements
-        MainNewsView {
+        MainNewsView,ChannelPresenter.ChannelUpdateListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -72,7 +73,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> impl
     @OnClick(R.id.btn_more_channel)
     private void moreCategoryClick(View v) {
         Log.i("zxg", "more category click");
-        showFragment(TAG_CHANNEL_FRAGMENT,true,true);
+        showFragment(TAG_CHANNEL_FRAGMENT, true, true);
 
     }
 
@@ -86,7 +87,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> impl
         return new MainPresenter(this);
     }
 
-    private void initChannelTab() {
+    public void initChannelTab() {
         channelContent.removeAllViews();
         channelList = getPresenter().getUserChannel();
         for (int i = 0; i < channelList.size(); i++) {
@@ -130,6 +131,10 @@ public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> impl
         }
     }
 
+    public void updateView(){
+        initChannelTab();
+        initFragment();
+    }
     private void initFragment() {
         newsFragmentList.clear();
         for (Channel channel : channelList) {
@@ -214,7 +219,6 @@ public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> impl
         }
         transaction.commitAllowingStateLoss();
         if(executeImmediately){
-            Log.i("zxg33","execute");
             fm.executePendingTransactions();
         }
     }
@@ -233,4 +237,18 @@ public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> impl
         throw new IllegalStateException("Unexcepted fragment: "+tag);
     }
 
+    @Override
+    public void onBackPressed() {
+        if(mChannelFragment.isVisible()){
+            showFragment(TAG_CHANNEL_FRAGMENT,false,true);
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onChannelUpdate() {
+        Log.i("zxg","onChannelUpdate");
+        updateView();
+    }
 }
