@@ -83,6 +83,5 @@ public class NewsItemAdapter extends BaseAdapter{
         public TextView newsDesc;
         public TextView newsAddress;
 
-
     }
 }

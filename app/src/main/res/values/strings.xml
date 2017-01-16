@@ -36,6 +36,10 @@
         <item >NBA</item>
         <item >旅行</item>
         <item >亲子</item>
+        <item>手机</item>
+        <item>游戏</item>
+        <item>教育</item>
+
     </string-array>
     <string name="subscribe_my_category">我的频道</string>
     <string name="subscribe_more_category">更多频道</string>

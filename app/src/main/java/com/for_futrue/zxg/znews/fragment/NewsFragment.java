@@ -85,7 +85,7 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
     };
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i("zxg","onCreate");
+        Log.i("zxg333","onCreate");
 
         Bundle args = getArguments();
         newsDesc = args != null?args.getInt("desc"):-1;
@@ -97,6 +97,7 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
+        Log.i("zxg333","onCreateView");
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.news_fragment, null);
         ViewUtils.inject(this, view);
         mAdapter = new NewsItemAdapter(getActivity());
@@ -116,9 +117,10 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
                 frame.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        mHandler.obtainMessage(GET_NEWS_DATA).sendToTarget();
                         mPtrFrameLayout.refreshComplete();
                     }
-                }, 3800);
+                }, 0);
             }
         });
     }
@@ -128,13 +130,13 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
      */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        Log.i("zxg","setUserVisibleHint"+newsDesc);
+        Log.i("zxg333","setUserVisibleHint:"+newsDesc+" "+isVisibleToUser);
         super.setUserVisibleHint(isVisibleToUser);
         /*
             loading data when this fragment visible and newList is null
          */
         if(newsList != null){
-            Log.i("zxg33","newsList.size:"+newsList.size());
+            Log.i("zxg333","newsList.size:"+newsList.size());
         }
 
         if(isVisibleToUser && newsList == null){

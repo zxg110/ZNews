@@ -18,22 +18,25 @@ import java.util.List;
 public class MainPresenter extends Presenter<MainNewsView>{
     private final static String TAG = MainPresenter.class.getSimpleName();
     private Context mContext;
+
     public static final int CHANNEL_RECOMMEND = 0;
     public static final int CHANNEL_HEADLINE = 1;
     public static final int CHANNEL_AMUSEMENT = 2;
     public static final int CHANNEL_SPORTS = 3;
     public static final int CHANNEL_ECONOMICS = 4;
-    public static final int CHANNEL_MILITARY = 6;
-    public static final int CHANNEL_PHONE = 7;
-    public static final int CHANNEL_TECHNOLOGY = 8;
-    public static final int CHANNEL_GAME = 9;
-    public static final int CHANNEL_DITIGAL = 10;
-    public static final int CHANNEL_EDUCATION = 11;
-    public static final int CHANNEL_JOKE = 12;
-    public static final int CHANNEL_CAR = 13;
-    public static final int CHANNEL_NBA= 14;
-    public static final int CHANNEL_TRAVEL = 16;
-    public static final int CHANNEL_MOM = 17;
+    public static final int CHANNEL_TECHNOLOGY = 5;
+    public static final int CHANNEL_DITIGAL = 6;
+    public static final int CHANNEL_MILITARY = 7;
+    public static final int CHANNEL_JOKE = 8;
+    public static final int CHANNEL_CAR = 9;
+    public static final int CHANNEL_NBA= 10;
+    public static final int CHANNEL_TRAVEL = 11;
+    public static final int CHANNEL_MOM = 12;
+    public static final int CHANNEL_PHONE = 13;
+    public static final int CHANNEL_GAME = 14;
+    public static final int CHANNEL_EDUCATION = 15;
+
+
     public MainPresenter(Context context){
         mContext = context;
     }

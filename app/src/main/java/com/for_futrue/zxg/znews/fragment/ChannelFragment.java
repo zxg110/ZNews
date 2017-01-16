@@ -128,7 +128,6 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter,ChannelFragme
     @Override
     public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
         isOperate = true;
-        //operateButton.setImageResource(R.mipmap.icon_save);
         if(isMove){
             return;
         }

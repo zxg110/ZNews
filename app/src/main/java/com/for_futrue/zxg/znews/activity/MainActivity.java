@@ -59,6 +59,8 @@ public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> impl
     private int mScreenWidth;
 
     private static final String TAG_CHANNEL_FRAGMENT = "tag_channel_fragment";
+
+    private NewsFragmentAdapter mFragmentAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -66,6 +68,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> impl
 
         setContentView(R.layout.main);
         ViewUtils.inject(this);
+        getUserChannelList();
         initChannelTab();
         initFragment();
     }
@@ -89,8 +92,8 @@ public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> impl
 
     public void initChannelTab() {
         channelContent.removeAllViews();
-        channelList = getPresenter().getUserChannel();
         for (int i = 0; i < channelList.size(); i++) {
+            Log.i("zxg333","desc from channelList:"+channelList.get(i).getDesc());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getPresenter()
                     .getWindowsWidth(this) / 7, LinearLayout.LayoutParams
                     .WRAP_CONTENT);
@@ -132,10 +135,14 @@ public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> impl
     }
 
     public void updateView(){
+        getUserChannelList();
         initChannelTab();
         initFragment();
     }
-    private void initFragment() {
+    private void getUserChannelList(){
+        channelList = getPresenter().getUserChannel();
+    }
+    private void updateFragment(){
         newsFragmentList.clear();
         for (Channel channel : channelList) {
             Bundle data = new Bundle();
@@ -144,9 +151,24 @@ public class MainActivity extends BaseActivity<MainPresenter, MainNewsView> impl
             newsFragment.setArguments(data);
             newsFragmentList.add(newsFragment);
         }
-        NewsFragmentAdapter mAdapter = new NewsFragmentAdapter(getSupportFragmentManager(),
-                newsFragmentList);
-        fragmentViewPager.setAdapter(mAdapter);
+        mFragmentAdapter.setList(newsFragmentList);
+        mFragmentAdapter.notifyDataSetChanged();
+
+    }
+    private void initFragment() {
+        newsFragmentList.clear();
+        for (Channel channel : channelList) {
+            Log.i("zxg333", "channeldesc:" + channel.getDesc());
+            Bundle data = new Bundle();
+            data.putInt("desc", channel.getDesc());
+            NewsFragment newsFragment = new NewsFragment();
+            newsFragment.setArguments(data);
+            newsFragmentList.add(newsFragment);
+        }
+        Log.i("zxg333", "first item:" + channelList.get(0).getDesc());
+        mFragmentAdapter = new NewsFragmentAdapter(getSupportFragmentManager());
+        mFragmentAdapter.setList(newsFragmentList);
+        fragmentViewPager.setAdapter(mFragmentAdapter);
         fragmentViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int
