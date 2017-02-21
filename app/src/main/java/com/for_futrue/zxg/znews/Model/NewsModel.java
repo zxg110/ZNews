@@ -7,7 +7,7 @@ import android.os.Message;
  */
 public interface NewsModel {
 
-    public void loadNewsListByChannel(final int channel,final Message msg );
+    public void loadNewsListByChannel(final int channel,int index,final Message msg );
 
     public void loadNewsDetailByUrl(String docId,Message msg);
 }

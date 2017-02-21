@@ -92,6 +92,14 @@ public class UrlsUtils {
                 return UNDEFINED;
         }
     }
+    private static String getEndUrl(int index){
+        int from = index*PAGE_SIZE;
+        int to = from+PAGE_SIZE;
+        if(index == 0){
+            return "/"+from+"-"+ to +".html";
+        }
+        return "/"+to+"-"+ from +".html";
+    }
     /*******************对外开放***********************/
     public static int getPageSize() {
         return PAGE_SIZE;
@@ -110,10 +118,16 @@ public class UrlsUtils {
         return HOST + COMMON_URL + channel_id + END_URL;
     }
 
+    public static String getUrlByChannel(int channelDesc,int pageIndex){
+        String channel_id = getIDByChannel(channelDesc);
+
+        return HOST + COMMON_URL + channel_id+ getEndUrl(pageIndex);
+
+    }
     public static String getDetailUrl(String docId){
         return DETAIL_URL + docId+END_DETAIL_URL;
     }
     public static void main(String[] args){
-        System.out.print("test:"+getUrlByChannel(1));
+        System.out.print("test:"+getUrlByChannel(1,2));
     }
 }

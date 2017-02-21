@@ -27,7 +27,7 @@ public class ZNewsApplication  extends Application{
         application = this;
     }
 
-    public static Context getApplication(){
+    public static Application getApplication(){
         if(application !=null){
             return  application;
         }

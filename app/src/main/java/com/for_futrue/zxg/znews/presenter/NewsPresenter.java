@@ -35,8 +35,9 @@ public class NewsPresenter extends Presenter<NewsFragmentUi> {
             switch (msg.what){
                 case GET_DATA_SUCCESS:
                     getUi().showLoadingAnim(false);
-                    getUi().setNewsData((List<News>)msg.obj);
-                    Log.i(TAG,"response:"+msg.obj);
+                    Log.i(TAG, "NewsPresenter response:" + msg.obj);
+                    getUi().setNewsData((List<News>) msg.obj);
+
                     break;
                 case GET_DATA_FAIL:
                     getUi().showLoadingAnim(true);
@@ -48,11 +49,11 @@ public class NewsPresenter extends Presenter<NewsFragmentUi> {
         this.newsModelImpl = new NewsModelImpl();
     }
 
-    public void loadNewsByChannel(int channelDesc) {
+    public void loadNewsByChannel(int channelDesc,int index) {
 
         Message msg = Message.obtain(mHandler);
 
-        newsModelImpl.loadNewsListByChannel(channelDesc, msg);
+        newsModelImpl.loadNewsListByChannel(channelDesc, index,msg);
     }
 
     private boolean isNetworkAvaiable() {

@@ -1,6 +1,7 @@
 package com.for_futrue.zxg.znews.activity;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,8 @@ import com.for_futrue.zxg.znews.view.NewsDetailView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
 import org.sufficientlysecure.htmltextview.HtmlTextView;
@@ -82,7 +85,27 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter,NewsDet
         mCommentImage.setOnClickListener(this);
         mBackImage.setOnClickListener(this);
         titleTextView.setText(currentNews.getTitle());
-        ImageLoaderUtil.display(newsImage, currentNews.getImgsrc());
+        ImageLoaderUtil.display(newsImage, currentNews.getImgsrc(), new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+
+            }
+
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+
+            }
+
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+
+            }
+        });
         getPresenter().loadNewsDetail(currentNews.getDocid());
     }
     @Override

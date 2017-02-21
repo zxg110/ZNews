@@ -20,7 +20,7 @@ import java.util.List;
 public class NetDataSource implements NewsDataSource{
     final static String TAG = "NetDataSource";
     @Override
-    public void loadNewsListByChannel(final int channel,final Message msg) {
+    public void loadNewsListByChannel(final int channel,final int index,final Message msg) {
         Log.i(TAG,"channel:"+channel);
         String url = UrlsUtils.getUrlByChannel(channel);
         OkHttpUtils.ResultCallback<String> loadNewsCallback = new OkHttpUtils.ResultCallback<String>() {
@@ -44,7 +44,7 @@ public class NetDataSource implements NewsDataSource{
         };
         Log.i(TAG,"url:"+url);
         //url = "http://c.m.163.com/nc/article/list/T1397016069906/0-20.html";
-        url = UrlsUtils.getUrlByChannel(channel);
+        url = UrlsUtils.getUrlByChannel(channel,index);
         OkHttpUtils.get(url,loadNewsCallback);
 
     }

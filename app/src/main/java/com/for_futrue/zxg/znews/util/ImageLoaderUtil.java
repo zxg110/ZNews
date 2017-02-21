@@ -2,12 +2,15 @@ package com.for_futrue.zxg.znews.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
  * Created by zxg on 2016/12/24.
@@ -16,8 +19,8 @@ public class ImageLoaderUtil {
     protected static ImageLoader imageLoader = ImageLoader.getInstance();
     private static DisplayImageOptions options = getOptions();
 
-    public static void display(ImageView imageView,String url){
-        imageLoader.displayImage(url,imageView,options);
+    public static void display(ImageView imageView,String url,ImageLoadingListener imageLoadingListener){
+        imageLoader.displayImage(url, imageView, options,imageLoadingListener);
     }
     private static DisplayImageOptions getOptions(){
         DisplayImageOptions options = new DisplayImageOptions.Builder()
