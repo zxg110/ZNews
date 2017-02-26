@@ -61,6 +61,7 @@ public class NewsUtil {
         NewsDetail newsDetailBean = null;
         try {
             JsonParser parser = new JsonParser();
+
             JsonObject jsonObj = parser.parse(res).getAsJsonObject();
             JsonElement jsonElement = jsonObj.get(docId);
             if(jsonElement == null) {

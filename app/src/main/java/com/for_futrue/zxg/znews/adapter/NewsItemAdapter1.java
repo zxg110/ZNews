@@ -2,7 +2,6 @@ package com.for_futrue.zxg.znews.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
@@ -14,10 +13,7 @@ import android.widget.TextView;
 import com.for_futrue.zxg.znews.R;
 import com.for_futrue.zxg.znews.activity.NewsDetailActivity;
 import com.for_futrue.zxg.znews.bean.News;
-import com.for_futrue.zxg.znews.util.ImageLoaderUtil;
 import com.for_futrue.zxg.znews.util.ImageLoaderUtils;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.List;
 

@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/HtmlTextView/HtmlTextView.iml" filepath="$PROJECT_DIR$/HtmlTextView/HtmlTextView.iml" />
       <module fileurl="file://$PROJECT_DIR$/ZNews.iml" filepath="$PROJECT_DIR$/ZNews.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/greendaogenerator/greendaogenerator.iml" filepath="$PROJECT_DIR$/greendaogenerator/greendaogenerator.iml" />
       <module fileurl="file://$PROJECT_DIR$/ptr-lib/ptr-lib.iml" filepath="$PROJECT_DIR$/ptr-lib/ptr-lib.iml" />
     </modules>
   </component>

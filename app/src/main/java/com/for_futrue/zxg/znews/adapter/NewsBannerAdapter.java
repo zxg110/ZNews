@@ -2,7 +2,6 @@ package com.for_futrue.zxg.znews.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,7 @@ import android.widget.TextView;
 import com.for_futrue.zxg.znews.R;
 import com.for_futrue.zxg.znews.activity.NewsDetailActivity;
 import com.for_futrue.zxg.znews.bean.News;
-import com.for_futrue.zxg.znews.util.ImageLoaderUtil;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.for_futrue.zxg.znews.util.ImageLoaderUtils;
 
 import java.util.List;
 
@@ -50,28 +47,7 @@ public class NewsBannerAdapter extends PagerAdapter implements View.OnClickListe
     public Object instantiateItem(ViewGroup container, int position) {
         View view = mInflater.inflate(R.layout.news_branner_item,null);
         ImageView newsImage = (ImageView)view.findViewById(R.id.news_branner_image);
-        ImageLoaderUtil.display(newsImage, newsList.get(position).getImgsrc(), new ImageLoadingListener() {
-
-            @Override
-            public void onLoadingStarted(String s, View view) {
-
-            }
-
-            @Override
-            public void onLoadingFailed(String s, View view, FailReason failReason) {
-
-            }
-
-            @Override
-            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-
-            }
-
-            @Override
-            public void onLoadingCancelled(String s, View view) {
-
-            }
-        });
+        ImageLoaderUtils.display(mContext,newsImage,newsList.get(position).getImgsrc());
         TextView newsTitle = (TextView)view.findViewById(R.id.news_branner_title);
         newsTitle.setText(newsList.get(position).getTitle());
         container.addView(view);

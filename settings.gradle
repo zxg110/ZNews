@@ -1,1 +1,1 @@
-include ':app', ':ptr-lib', ':HtmlTextView', ':greendaogenerator'
+include ':app', ':ptr-lib', ':HtmlTextView'

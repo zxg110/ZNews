@@ -4,7 +4,10 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
 import com.for_futrue.zxg.znews.R;
+
+import java.util.UUID;
 
 /**
  * Created by zxg on 2017/2/21.
@@ -24,5 +27,11 @@ public class ImageLoaderUtils {
         }
         Glide.with(context).load(url).placeholder(R.mipmap.ic_image_loading)
                 .error(R.mipmap.ic_image_loadfail).crossFade().into(imageView);
+    }
+    public static void display1(Context context, ImageView imageView, String url) {
+        if(imageView == null) {
+            throw new IllegalArgumentException("argument error");
+        }
+        Glide.with(context).load(url).crossFade().into(imageView);
     }
 }

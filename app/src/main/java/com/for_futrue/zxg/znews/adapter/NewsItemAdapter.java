@@ -1,7 +1,6 @@
 package com.for_futrue.zxg.znews.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +11,7 @@ import android.widget.TextView;
 
 import com.for_futrue.zxg.znews.R;
 import com.for_futrue.zxg.znews.bean.News;
-import com.for_futrue.zxg.znews.util.ImageLoaderOption;
-import com.for_futrue.zxg.znews.util.ImageLoaderUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-
-import org.w3c.dom.Text;
+import com.for_futrue.zxg.znews.util.ImageLoaderUtils;
 
 import java.util.List;
 
@@ -75,28 +67,7 @@ public class NewsItemAdapter extends BaseAdapter{
         holder.newsTitle.setText(newsList.get(position).getTitle());
         holder.newsDesc.setText(newsList.get(position).getDigest());
         holder.newsAddress.setText(newsList.get(position).getSource());
-        ImageLoaderUtil.display(holder.leftImage, newsList.get(position).getImgsrc(), new ImageLoadingListener() {
-
-            @Override
-            public void onLoadingStarted(String s, View view) {
-
-            }
-
-            @Override
-            public void onLoadingFailed(String s, View view, FailReason failReason) {
-
-            }
-
-            @Override
-            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-
-            }
-
-            @Override
-            public void onLoadingCancelled(String s, View view) {
-
-            }
-        });
+        ImageLoaderUtils.display(mContext,holder.leftImage,newsList.get(position).getImgsrc());
         return convertView;
     }
 

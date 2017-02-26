@@ -46,14 +46,9 @@ import in.srain.cube.views.ptr.PtrClassicFrameLayout;
  */
 public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> implements NewsFragmentUi{
     public static final String TAG = "NewsFragment";
-    private final static int SET_NEWS_DATA = 0;
-    private final static int GET_NEWS_DATA = 1;
     private int pageIndex = 0;
 
     private int newsDesc;
-
-//    @ViewInject(R.id.news_listview)
-//    private ListView newsListView;
 
     @ViewInject(R.id.main_recyclerview)
     private RefreshRecyclerView mainRecyclerView;
@@ -68,43 +63,11 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
 
     private LinearLayoutManager mLayoutManager;
 
-
-
     private List<News> newsList;
 
-    private NewsItemAdapter mAdapter;
 
-    private final Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case SET_NEWS_DATA:
-                    Log.i(TAG,"handler GET_NEWS_DTAT ");
-//                    newsListView.setAdapter(mAdapter);
-//                    newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                        @Override
-//                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                            News news = (News)mAdapter.getItem(position);
-//                            Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
-//                            intent.putExtra("news",news);
-//                            startActivity(intent);
-//                        }
-//                    });
-
-                    mainRecyclerView.notifyData();
-
-                break;
-                case GET_NEWS_DATA:
-                    Log.i(TAG,"handler SET_NEWS_DATA newsDesc"+newsDesc);
-                    getmPresenter().loadNewsByChannel(newsDesc,pageIndex);
-            }
-        }
-    };
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i("zxg333","onCreate");
-
         Bundle args = getArguments();
         newsDesc = args != null?args.getInt("desc"):-1;
         Log.i(TAG, "newsDesc:" + newsDesc);
@@ -115,10 +78,8 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        Log.i("zxg333", "onCreateView");
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.news_fragment, null);
         ViewUtils.inject(this, view);
-        //mAdapter = new NewsItemAdapter(getActivity());
         mainAdapter = new NewsItemAdapter1(getActivity());
         mLayoutManager = new LinearLayoutManager(getActivity());
         mainRecyclerView.setLayoutManager(mLayoutManager);
@@ -137,11 +98,8 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
         return view;
     }
     private void loadMoreNews(){
-        android.util.Log.i("zxg9","loadMoreNews before ++:"+pageIndex);
-
-        mHandler.obtainMessage(GET_NEWS_DATA).sendToTarget();
         pageIndex++;
-        android.util.Log.i("zxg9","loadMoreNews after ++:"+pageIndex);
+        getmPresenter().loadNewsByChannel(newsDesc,pageIndex);
 
     }
     private void initPtrFrameLayout(){
@@ -157,7 +115,8 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
                 frame.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mHandler.obtainMessage(GET_NEWS_DATA).sendToTarget();
+                        mainRecyclerView.setLoadMoreEnable(true);
+                        getmPresenter().loadNewsByChannel(newsDesc,pageIndex);
                         mPtrFrameLayout.refreshComplete();
                     }
                 }, 0);
@@ -170,25 +129,18 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
      */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        Log.i("zxg333","setUserVisibleHint:"+newsDesc+" "+isVisibleToUser);
         super.setUserVisibleHint(isVisibleToUser);
         /*
             loading data when this fragment visible and newList is null
          */
-        if(newsList != null){
-            Log.i("zxg333","newsList.size:"+newsList.size());
-        }
-
         if(isVisibleToUser && newsList == null){
-            mHandler.obtainMessage(GET_NEWS_DATA).sendToTarget();
+            getmPresenter().loadNewsByChannel(newsDesc,pageIndex);
         }
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.i("zxg1","context time:"+System.currentTimeMillis());
-        Log.i("zxg1","context: "+getActivity().getApplicationContext().toString());
         getmPresenter().setmContext(getActivity().getApplicationContext());
 
     }
@@ -215,6 +167,13 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
     @Override
     public void setNewsData(List<News> newsList1) {
 
+        if(newsList1 == null || newsList1.size() == 0){
+            Toast.makeText(getActivity(),"已加载全部",Toast.LENGTH_SHORT).show();
+            mainRecyclerView.setLoadMoreEnable(false);
+            mainRecyclerView.notifyData();
+            pageIndex = 0;
+            return;
+        }
         if(newsList == null){
             newsList = new ArrayList<News>();
         }
@@ -236,8 +195,5 @@ public class NewsFragment extends BaseFragment<NewsPresenter,NewsFragmentUi> imp
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(newsList != null){
-            outState.putString("test","1");
-        }
     }
 }

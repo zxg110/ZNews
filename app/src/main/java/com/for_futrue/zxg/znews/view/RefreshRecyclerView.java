@@ -35,6 +35,8 @@ public class RefreshRecyclerView extends RecyclerView{
     private boolean loadMoreEnable = false;//是否允许加载更多
     private int footerResource = -1;//脚布局
     private boolean footer_visible = false;//脚部是否可以见
+
+
     private void init() {
         setOnScrollListener(new OnScrollListener() {
             @Override
@@ -50,7 +52,6 @@ public class RefreshRecyclerView extends RecyclerView{
                      * distanceY < 0 为上拉的时候才刷新
                      */
                     if (distanceY < 0 && itemCount != 0 && lastVisiblePosition + 4 >= itemCount - 1 && !isLoadingMore && loadMoreEnable) {
-                        Log.i("test","加载更多");
                         //正在加载更多
                         loading();
                         if (footerResource != -1){//有脚布局
@@ -89,8 +90,6 @@ public class RefreshRecyclerView extends RecyclerView{
 
     @Override
     public void setAdapter(Adapter adapter) {
-//        SlideInBottomAnimationAdapter slideInBottomAnimationAdapter = new SlideInBottomAnimationAdapter(adapter);
-//        slideInBottomAnimationAdapter.setDuration(600);
         autoLoadAdapter = new AutoLoadAdapter(adapter);//添加动画
         super.setAdapter(autoLoadAdapter);
     }
